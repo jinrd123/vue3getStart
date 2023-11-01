@@ -18,7 +18,7 @@ export default {
 </script>
 
 <template>
-  <HelloWorld :msg="msg" />
+  <HelloWorld :id="123" :parents="{motherName: 'lijing', fatherName: 'jinenbin'}"/>
   <Parent/>
 </template>
 
