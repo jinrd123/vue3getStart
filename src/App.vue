@@ -10,15 +10,24 @@ export default {
   },
   setup() {
     const msg: string = "jrd";
+    const callBack = (data: any) => {
+      console.log(data);
+    }
     return {
-      msg
+      msg,
+      callBack,
     }
   }
 }
 </script>
 
 <template>
-  <HelloWorld :id="123" :parents="{motherName: 'lijing', fatherName: 'jinenbin'}"/>
+  <HelloWorld 
+    :id="123" 
+    :parents="{motherName: 'lijing', fatherName: 'jinenbin'}"
+    @event1="callBack"
+    @event2="callBack"
+  />
   <Parent/>
 </template>
 

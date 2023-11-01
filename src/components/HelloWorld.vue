@@ -15,6 +15,7 @@
     }"
   >动态添加属性</div>
   <Child ref="childComponent"/>
+  <button @click="emitOnClick">通过emit向父组件传递数据</button>
 </template>
 
 <script setup lang="ts"> // 一般都给script标签加上这个setup，这是个方便开发的语法糖，在里面写逻辑等价于写在setup函数里面，并且里面声明的变量和函数都不用显示return（setup函数需要return之后模版中才可以使用）并且import语句也直接写在顶层即可
@@ -113,7 +114,18 @@ const props = defineProps({
 // }
 // const props = withDefaults(defineProps<IProps>(), {id: 123}); // withDefaults第一个参数即为带有泛型的defineProps（入参为空即可），第二个参数即为默认值
 console.log(props.id);
+// —————— defineEmits ———————
+// 作用：子传父——子组件调用defineEmits获取emit方法，函数逻辑中可以调用emit来触发某个事件让父组件进行感知并且传递数据给父组件
 
+// const emit = defineEmits(['event1', 'event2']); // 没有ts标注的普通使用，在调用emit函数时无类型提示
+const emit = defineEmits<{ // ts类型标注：defineEmits的泛型为一个接口类型，里面没有属性，只有若干个调用签名，每个调用签名对应了一个emit事件
+  (e: 'event1', value: string): void;
+  (e: 'event2', value: number): void;
+}>();
+const emitOnClick = () => {
+  emit('event1', 'the data of event1');
+  emit('event2', 123); 
+}
 
 </script>
 
